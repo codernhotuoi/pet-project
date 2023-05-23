@@ -1,27 +1,28 @@
-import { StyleSheet } from 'react-native'
-import BookList from './src/page/BookList'
+import { SafeAreaView, StyleSheet } from 'react-native'
 import Register from './src/page/Register'
 import Login from './src/page/Login'
 import HomeScreen from './src/page/HomeScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Tabs from './src/components/Tabs'
 import TabsContainer from './src/page/TabsContainer'
 const Stack = createNativeStackNavigator()
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 export default function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName='Home'
-                screenOptions={{
-                    headerShown: false,
-                }}>
-                <Stack.Screen name='Home' component={HomeScreen} />
-                <Stack.Screen name='Register' component={Register} />
-                <Stack.Screen name='Login' component={Login} />
-                <Stack.Screen name='TabsContainer' component={TabsContainer} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <SafeAreaProvider>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName='HomeScreen'
+                    screenOptions={{
+                        headerShown: false,
+                    }}>
+                    <Stack.Screen name='HomeScreen' component={HomeScreen} />
+                    <Stack.Screen name='Register' component={Register} />
+                    <Stack.Screen name='Login' component={Login} />
+                    <Stack.Screen name='TabsContainer' component={TabsContainer} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
     )
 }
 
