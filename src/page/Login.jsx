@@ -1,4 +1,14 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, SafeAreaView, TextInput, ScrollView } from 'react-native'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    StyleSheet,
+    Image,
+    SafeAreaView,
+    TextInput,
+    ScrollView,
+    useWindowDimensions,
+} from 'react-native'
 import React, { useCallback } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useForm, Controller } from 'react-hook-form'
@@ -6,8 +16,11 @@ import { Button } from 'react-native'
 import { loginSchema, schema } from '../../rules/schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { getFont, getLineHeight, globalDimension, HEIGHT, MS, WIDTH } from '../components/scaleUtils'
 
 const Login = ({ navigation }) => {
+    useWindowDimensions()
+    console.log('globalDimension', globalDimension)
     const insets = useSafeAreaInsets()
     const {
         control,
@@ -31,44 +44,47 @@ const Login = ({ navigation }) => {
                 <View style={{ alignItems: 'flex-start' }}>
                     <TouchableOpacity
                         style={{
-                            paddingVertical: 9,
-                            paddingHorizontal: 13,
+                            paddingVertical: MS(9),
+                            paddingHorizontal: MS(13),
                             borderRadius: 100,
                             backgroundColor: '#fff',
-                            marginLeft: 16,
+                            marginLeft: MS(16),
                         }}>
-                        <Image source={require('../../assets/img/Icon.png')} style={{ width: 9, height: 18 }}></Image>
+                        <Image
+                            source={require('../../assets/img/Icon.png')}
+                            style={{ width: MS(9), height: MS(18) }}></Image>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 20, alignItems: 'center' }}>
-                    <Image source={require('../../assets/img/logo.png')}></Image>
+                <View style={{ marginTop: WIDTH(20), alignItems: 'center' }}>
+                    <Image
+                        source={require('../../assets/img/LogoLogin.png')}
+                        style={{ width: MS(143), height: MS(96) }}></Image>
                 </View>
                 <View
                     style={{
-                        marginTop: 16,
-                        marginHorizontal: 16,
+                        marginTop: MS(16),
+                        marginHorizontal: MS(16),
                     }}>
                     <Text
                         style={{
                             textAlign: 'center',
-                            fontSize: 15,
-                            lineHeight: 24,
+                            fontSize: getFont(15),
+                            lineHeight: getLineHeight(24),
                             fontWeight: 500,
                             color: '#2E3192',
                         }}>
-                        The Pioneer in Coaching 4 English Skills
+                        {'The Pioneer in Coaching 4 English Skills'}
                     </Text>
                 </View>
 
-                <SafeAreaView
+                <View
                     style={{
                         flexDirection: 'row',
-                        marginHorizontal: 16,
-                        borderRadius: 12,
-                        overflow: 'hidden',
+                        marginHorizontal: MS(16),
+                        borderRadius: MS(12),
                         position: 'relative',
                         backgroundColor: '#fff',
-                        marginTop: 24,
+                        marginTop: MS(24),
                     }}>
                     <Controller
                         control={control}
@@ -81,10 +97,10 @@ const Login = ({ navigation }) => {
                                 onChangeText={onChange}
                                 value={value}
                                 style={{
-                                    marginLeft: 52,
-                                    height: 48,
+                                    marginLeft: MS(52),
+                                    height: MS(48),
                                     flex: 1,
-                                    paddingVertical: 12,
+                                    paddingVertical: MS(12),
                                 }}
                                 placeholder='Email'></TextInput>
                         )}
@@ -95,8 +111,8 @@ const Login = ({ navigation }) => {
                             style={{
                                 position: 'absolute',
                                 top: '50%',
-                                transform: [{ translateY: -10 }],
-                                right: 10,
+                                transform: [{ translateY: MS(-10) }],
+                                right: MS(10),
                                 color: 'red',
                             }}>
                             {errors.email.message}
@@ -107,29 +123,28 @@ const Login = ({ navigation }) => {
                         style={{
                             position: 'absolute',
                             zIndex: 100,
-                            top: 14,
-                            left: 20,
-                            width: 16,
-                            height: 20,
+                            top: MS(14),
+                            left: MS(20),
+                            width: MS(16),
+                            height: MS(20),
                         }}></Image>
-                </SafeAreaView>
-                <SafeAreaView
+                </View>
+                <View
                     style={{
                         flexDirection: 'row',
-                        marginHorizontal: 16,
-                        borderRadius: 12,
-                        // overflow: 'hidden',
+                        marginHorizontal: MS(16),
+                        borderRadius: MS(12),
                         position: 'relative',
                         backgroundColor: '#fff',
-                        marginTop: 24,
+                        marginTop: MS(24),
                     }}>
                     {errors.password && (
                         <Text
                             style={{
                                 position: 'absolute',
                                 top: '50%',
-                                transform: [{ translateY: -10 }],
-                                right: 10,
+                                transform: [{ translateY: MS(-10) }],
+                                right: MS(10),
                                 color: 'red',
                             }}>
                             {errors.password.message}
@@ -140,10 +155,10 @@ const Login = ({ navigation }) => {
                         style={{
                             position: 'absolute',
                             zIndex: 100,
-                            top: 14,
-                            left: 20,
-                            width: 16,
-                            height: 20,
+                            top: MS(14),
+                            left: MS(20),
+                            width: MS(16),
+                            height: MS(20),
                         }}></Image>
                     <Controller
                         control={control}
@@ -156,117 +171,125 @@ const Login = ({ navigation }) => {
                                 onChangeText={onChange}
                                 value={value}
                                 style={{
-                                    marginLeft: 52,
-                                    height: 48,
+                                    marginLeft: MS(52),
+                                    height: MS(48),
                                     flex: 1,
-                                    paddingVertical: 12,
+                                    paddingVertical: MS(12),
                                 }}
                                 placeholder='Mật khẩu'></TextInput>
                         )}
                         name='password'
                     />
-                </SafeAreaView>
+                </View>
                 <View>
                     <Text
                         style={{
-                            marginTop: 12,
+                            marginTop: MS(12),
                             textAlign: 'right',
-                            marginRight: 16,
+                            marginRight: MS(16),
                             fontWeight: 400,
-                            fontSize: 15,
-                            lineHeight: 24,
+                            fontSize: getFont(15),
+                            lineHeight: getLineHeight(24),
                             color: '#2E3192',
                             position: 'relative',
                         }}>
-                        Quên mật khẩu
+                        {'Quên mật khẩu'}
                     </Text>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity
                         onPress={handleSubmit(onSubmit)}
                         style={{
-                            paddingVertical: 12,
+                            paddingVertical: MS(12),
                             backgroundColor: '#CD2027',
-                            width: 343,
-                            marginHorizontal: 12,
-                            borderRadius: 12,
+                            width: WIDTH(343),
+                            marginHorizontal: MS(12),
+                            borderRadius: MS(12),
                             alignItems: 'center',
-                            marginTop: 24,
+                            marginTop: MS(24),
                         }}>
                         <Text
                             style={{
-                                fontSize: 17,
-                                lineHeight: 24,
+                                fontSize: getFont(17),
+                                lineHeight: getLineHeight(24),
                                 fontWeight: 600,
                                 color: '#fff',
                             }}>
-                            Đăng nhập
+                            {'Đăng nhập'}
                         </Text>
                     </TouchableOpacity>
                 </View>
                 <View
                     style={{
-                        height: 1,
-                        borderWidth: 1,
+                        height: MS(1),
+                        borderWidth: MS(1),
                         borderColor: '#c5cee0',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        marginTop: 105,
-                        marginHorizontal: 40,
+                        marginTop: MS(105),
+                        marginHorizontal: MS(40),
                         position: 'relative',
                     }}>
                     <View
                         style={{
                             backgroundColor: '#F8F9FA',
-                            paddingHorizontal: 8,
+                            paddingHorizontal: MS(8),
                             position: 'absolute',
                             zIndex: 100,
-                            top: -12,
+                            top: MS(-12),
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}>
                         <Text
                             style={[
                                 {
-                                    fontSize: 15,
-                                    lineHeight: 24,
+                                    fontSize: getFont(15),
+                                    lineHeight: getLineHeight(24),
                                     color: '#495057',
                                 },
                             ]}>
-                            Hoặc
+                            {'Hoặc'}
                         </Text>
                     </View>
                 </View>
 
                 <TouchableOpacity
                     style={{
-                        paddingVertical: 12,
+                        paddingVertical: MS(12),
                         backgroundColor: '#1877F2',
-                        width: 343,
-                        borderRadius: 12,
+                        width: WIDTH(343),
+                        borderRadius: MS(12),
                         alignItems: 'center',
                         justifyContent: 'center',
-                        marginTop: 32,
+                        marginTop: MS(32),
                         flexDirection: 'row',
-                        gap: 12,
-                        marginHorizontal: 12,
+                        gap: MS(12),
+                        marginHorizontal: MS(12),
                     }}>
                     <Image source={require('../../assets/img/Vector.png')}></Image>
                     <Text
                         style={{
-                            fontSize: 17,
-                            lineHeight: 24,
+                            fontSize: getFont(17),
+                            lineHeight: getLineHeight(24),
                             fontWeight: 600,
                             color: '#fff',
                         }}>
-                        Đăng nhập bằng facebook
+                        {'Đăng nhập bằng facebook'}
                     </Text>
                 </TouchableOpacity>
-                <View style={{ marginTop: 24, flexDirection: 'row', gap: 2, justifyContent: 'center' }}>
-                    <Text style={{ fontWeight: 400, fontSize: 15, lineHeight: 24 }}>Chưa có tài khoản Jaxtina ?</Text>
+                <View style={{ marginTop: MS(24), flexDirection: 'row', gap: MS(2), justifyContent: 'center' }}>
+                    <Text style={{ fontWeight: 400, fontSize: getFont(15), lineHeight: getLineHeight(24) }}>
+                        {'Chưa có tài khoản Jaxtina ?'}
+                    </Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={{ color: '#2E3192', fontWeight: 600, fontSize: 16, lineHeight: 24 }}>
-                            Đăng ký ngay
+                        <Text
+                            style={{
+                                color: '#2E3192',
+                                fontWeight: 600,
+                                fontSize: getFont(16),
+                                lineHeight: getLineHeight(24),
+                            }}>
+                            {'Đăng ký ngay'}
                         </Text>
                     </TouchableOpacity>
                 </View>

@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet } from 'react-native'
+import { SafeAreaView, StyleSheet, useWindowDimensions } from 'react-native'
 import Register from './src/page/Register'
 import Login from './src/page/Login'
 import HomeScreen from './src/page/HomeScreen'
@@ -7,7 +7,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import TabsContainer from './src/page/TabsContainer'
 const Stack = createNativeStackNavigator()
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { useEffect } from 'react'
+import { caculateScale } from './src/components/scaleUtils'
 export default function App() {
+    const dimension = useWindowDimensions()
+    useEffect(() => {
+        caculateScale()
+    }, [dimension])
     return (
         <SafeAreaProvider>
             <NavigationContainer>
